@@ -42,7 +42,7 @@
                 if (permission === "granted") {
                     // 通知を送信
                     new Notification("バーコードスキャン", {
-                        body: `スキャンされたバーコード${decodedText}`
+                        body: `スキャンされたバーコード${code}`
                     });
                 }
             });
