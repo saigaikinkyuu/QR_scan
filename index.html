@@ -4,11 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UPCコードスキャン</title>
-    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <!-- QuaggaJSのCDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 <body>
     <h1>UPCコードスキャン</h1>
-    <div id="reader" style="width:300px; height:300px;"></div>
-    <script src="./index.js"></script>
+    <div id="scanner-container" style="width:300px; height:200px;"></div>
+    <script>
+        // Quaggaを使ってUPCコードをスキャン
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#scanner-container'), // ビデオストリームを表示するコンテナ
+                constraints: {
+                    facingMode: "environment" // 環境カメラ（背面カメラ）を使用
+                }
+            },
+            decoder: {
+                readers: ["upc_reader"] // UPCバーコードリーダー
+            }
+        }, function (err) {
+            if (err) {
+                console.error("Quaggaの初期化に失敗しました: ", err);
+                return;
+            }
+            console.log("Quaggaが正常に初期化されました。");
+            Quagga.start(); // スキャンを開始
+        });
+
+        // スキャン成功時のコールバック
+        Quagga.onDetected(function (result) {
+            const code = result.codeResult.code;
+            console.log(`スキャンされたUPCコード: ${code}`);
+            Quagga.stop(); // スキャンを停止
+        });
+    </script>
 </body>
 </html>
