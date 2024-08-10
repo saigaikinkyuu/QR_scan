@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>バーコードスキャナー</title>
-    <script src="https://cdn.jsdelivr.net/npm/quagga2"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPCコードスキャン</title>
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
 </head>
 <body>
-    <video id="video" width="320" height="240"></video>
+    <h1>UPCコードスキャン</h1>
+    <div id="reader" style="width:300px; height:300px;"></div>
     <script src="./index.js"></script>
 </body>
 </html>
