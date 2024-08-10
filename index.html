@@ -37,6 +37,15 @@
         Quagga.onDetected(function (result) {
             const code = result.codeResult.code;
             console.log(`スキャンされたUPCコード: ${code}`);
+            // 通知の許可を求める
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    // 通知を送信
+                    new Notification("バーコードスキャン", {
+                        body: `スキャンされたバーコード${decodedText}`
+                    });
+                }
+            });
             Quagga.stop(); // スキャンを停止
         });
     </script>
